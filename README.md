@@ -3,7 +3,7 @@ Project Zomboid mod.
 ## Description
 
 ### Compatibility
-Project Zomboid: `40.43`
+Project Zomboid: `40.43`.  
 Other mods: mods that modify `ISVehicleMechanics.doPartContextMenu` will be incompatible.
 
 ## Translations
