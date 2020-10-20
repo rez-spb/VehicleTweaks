@@ -156,9 +156,9 @@ function ISVehicleSetEngine:doPartContextMenu(part, x, y)
 	
 	if part:getId() == "Engine" and not VehicleUtils.RequiredKeyNotFound(part, self.chr) then
 		-- custom option for admin
-		-- if ISVehicleMechanics.cheat or playerObj:getAccessLevel() ~= "None" then
-		option = self.context:addOption("MOD: Set Engine Parameters", playerObj, self.onCallSetEngineFeature, self.vehicle);
-		-- end
+		if ISVehicleMechanics.cheat or playerObj:getAccessLevel() ~= "None" then
+			option = self.context:addOption("MOD: Set Engine Parameters", playerObj, self.onCallSetEngineFeature, self.vehicle);
+		end
 
 		if part:getCondition() > 10 and self.chr:getPerkLevel(Perks.Mechanics) >= part:getVehicle():getScript():getEngineRepairLevel() and self.chr:getInventory():contains("Spanner") then
 			option = self.context:addOption(getText("IGUI_TakeEngineParts"), playerObj, ISVehicleMechanics.onTakeEngineParts, part);
