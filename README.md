@@ -1,6 +1,8 @@
 # VehicleTweaks
-Project Zomboid mod.
+Project Zomboid mod that adds extra tweaks for vehicles.
+
 ## Description
+Mod has abilities to set engine quality, power and loudness, reset trunk's repaired count with current repaired count shown as a tooltip.
 
 ### Compatibility
 Project Zomboid: `40.43`.  
