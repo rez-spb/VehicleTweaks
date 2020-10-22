@@ -1,3 +1,19 @@
+-- author: rez
+-- version: 0.2.0 (2020-10-22)
+-- based on: 40.43
+
+--[[
+	Auxiliary file for getting engine parameters from user.
+	
+	COPYRIGHT:
+	The idea, artwork, placement, English and Russian translations,
+	code and other things introduced in this mod are copyrighted 
+	to Rez.
+	Localizations are copyrighted to steam users who provided them
+	(see localization files).
+	Base game functions are copyrighted to The Indie Stone.
+]]--
+
 ISVehicleSetEngineWindow = ISCollapsableWindow:derive("ISVehicleSetEngineWindow");
 
 function ISVehicleSetEngineWindow:initialise()
@@ -28,7 +44,7 @@ function ISVehicleSetEngineWindow:createChildren()
 	self.se_ui_text_loudness:initialise();
 
 	-- save button
-	self.se_ui_save = ISButton:new(5, 95, 140, 25, getText("UI_characreation_BuildSave"), self, ISVehicleSetEngine.setEngine);
+	self.se_ui_save = ISButton:new(5, 95, 140, 25, getText("UI_characreation_BuildSave"), self, ISVehicleTweaks.setEngine);
 	self.se_ui_save:initialise();
 
 	-- stick to collapsable window

@@ -1,5 +1,5 @@
 -- author: rez
--- version: 0.1 (2020-10-21)
+-- version: 0.2.0 (2020-10-22)
 -- based on: 40.43
 
 --[[
@@ -16,35 +16,35 @@
 
 require "Vehicles/ISUI/ISVehicleMechanics";
 
-ISVehicleSetEngine = ISVehicleMechanics:derive("ISVehicleSetEngine");
+ISVehicleTweaks = ISVehicleMechanics:derive("ISVehicleTweaks");
 
-function ISVehicleSetEngine:initialise()
+function ISVehicleTweaks:initialise()
 	original_class.initialise(self);
 end
 
 function debug_print(_msg)
-	local m = '[ISVehicleSetEngine]: ' .. tostring(_msg);
+	local m = '[ISVehicleTweaks]: ' .. tostring(_msg);
 	print(m);
 end
 
-function ISVehicleSetEngine:setEngine()
+function ISVehicleTweaks:setEngine()
 	local _quality = tonumber(self.se_ui_entry_quality:getText());
 	local _hp = tonumber(self.se_ui_entry_hp:getText());
 	local _loudness = tonumber(self.se_ui_entry_loudness:getText());
 	debug_print('entered quality: ' .. _quality);
 	debug_print('entered hp: ' .. _hp);
 	debug_print('entered loudness: ' .. _loudness);
-	ISVehicleSetEngine.se_vehicle:setEngineFeature(_quality, _loudness, _hp);
+	ISVehicleTweaks.se_vehicle:setEngineFeature(_quality, _loudness, _hp);
 end
 
-function ISVehicleSetEngine:onCallSetEngineFeature(_vehicle)
-	ISVehicleSetEngine.se_vehicle = _vehicle or {};
+function ISVehicleTweaks:onCallSetEngineFeature(_vehicle)
+	ISVehicleTweaks.se_vehicle = _vehicle or {};
 	window = ISVehicleSetEngineWindow:new(450, 280, 150, 125);
 end
 
-function ISVehicleSetEngine:doPartContextMenu(part, x, y)
+function ISVehicleTweaks:doPartContextMenu(part, x, y)
 	--[[
-		PZ internal function with added option to set engine parameters.
+		PZ internal function with added options.
 	]]--
 	if UIManager.getSpeedControls():getCurrentGameSpeed() == 0 then return; end
 	
@@ -229,7 +229,7 @@ function ISVehicleSetEngine:doPartContextMenu(part, x, y)
 	end
 end
 
-function ISVehicleSetEngine:new(x, y, character, vehicle)
+function ISVehicleTweaks:new(x, y, character, vehicle)
 	local o = original_class:new(x, y, character, vehicle);
 	setmetatable(o, self);
 	self.__index = self;
@@ -238,4 +238,4 @@ function ISVehicleSetEngine:new(x, y, character, vehicle)
 end
 
 original_class = ISVehicleMechanics;
-ISVehicleMechanics = ISVehicleSetEngine;
+ISVehicleMechanics = ISVehicleTweaks;
