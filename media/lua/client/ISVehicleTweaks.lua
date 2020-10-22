@@ -4,14 +4,8 @@
 
 --[[
 	Set engine quality, power and loudness (admin only).
-	
-	COPYRIGHT:
-	The idea, artwork, placement, English and Russian translations,
-	code and other things introduced in this mod are copyrighted 
-	to Rez.
-	Localizations are copyrighted to steam users who provided them
-	(see localization files).
-	Base game functions are copyrighted to The Indie Stone.
+	Resets trunk repaired count (admin only).
+	Displays current repaired count as a tooltip.
 ]]--
 
 require "Vehicles/ISUI/ISVehicleMechanics";
@@ -39,7 +33,13 @@ end
 
 function ISVehicleTweaks:onCallSetEngineFeature(_vehicle)
 	ISVehicleTweaks.se_vehicle = _vehicle or {};
-	window = ISVehicleSetEngineWindow:new(450, 280, 150, 125);
+	_window = ISVehicleSetEngineWindow:new(450, 280, 150, 125);
+end
+
+function ISVehicleTweaks:onCallResetTrunk(_part)
+	local item = _part:getInventoryItem();
+	debug_print('repaired before: ' .. item:getHaveBeenRepaired());
+	ISTimedActionQueue.add(ISVehicleTweaksResetTrunkCommand:new(self, _part));
 end
 
 function ISVehicleTweaks:doPartContextMenu(part, x, y)
@@ -153,9 +153,21 @@ function ISVehicleTweaks:doPartContextMenu(part, x, y)
 		tooltip.description = condInfo;
 		option.toolTip = tooltip;
 	end
+
+		-- Resets trunk repaired count (admin only).
+		if part:getId() == "TruckBed" then
+			local item = part:getInventoryItem();
+			local repairs = item:getHaveBeenRepaired();
+			option = self.context:addOption("MOD: Reset Repair Count", playerObj, self.onCallResetTrunk, part);
+			local ttp = ISToolTip:new();
+			ttp:initialise();
+			ttp:setVisible(false);
+			ttp.description = "Repaired: x" .. repairs;
+			option.toolTip = ttp;
+		end
 	
 	if part:getId() == "Engine" and not VehicleUtils.RequiredKeyNotFound(part, self.chr) then
-		-- custom option for admin
+		-- Set engine quality, power and loudness (admin only).
 		-- if ISVehicleMechanics.cheat or playerObj:getAccessLevel() ~= "None" then
 		option = self.context:addOption("MOD: Set Engine Parameters", playerObj, self.onCallSetEngineFeature, self.vehicle);
 		-- end
@@ -234,6 +246,7 @@ function ISVehicleTweaks:new(x, y, character, vehicle)
 	setmetatable(o, self);
 	self.__index = self;
 	self.se_vehicle = nil;
+	self.character = character;
 	return o;
 end
 
