@@ -1,5 +1,5 @@
 -- author: rez
--- version: 0.2.0 (2020-10-22)
+-- version: 0.3.0 (2020-10-22)
 -- based on: 40.43
 
 --[[
@@ -33,7 +33,10 @@ end
 
 function ISVehicleTweaks:onCallSetEngineFeature(_vehicle)
 	ISVehicleTweaks.se_vehicle = _vehicle or {};
-	_window = ISVehicleSetEngineWindow:new(450, 280, 150, 125);
+	local _quality = _vehicle:getEngineQuality();
+	local _hp = _vehicle:getEnginePower();
+	local _loudness = _vehicle:getEngineLoudness();
+	_window = ISVehicleSetEngineWindow:new(450, 280, 150, 125, _quality, _hp, _loudness);
 end
 
 function ISVehicleTweaks:onCallResetTrunk(_part)
