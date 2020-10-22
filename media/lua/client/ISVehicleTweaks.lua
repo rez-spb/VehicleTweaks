@@ -36,20 +36,7 @@ function ISVehicleTweaks:onCallSetEngineFeature(_vehicle)
 	local _quality = _vehicle:getEngineQuality();
 	local _hp = _vehicle:getEnginePower();
 	local _loudness = _vehicle:getEngineLoudness();
---[[
-  public int getEngineQuality() {
-    return this.engineQuality;
-  }
-  
-  public int getEngineLoudness() {
-    return this.engineLoudness;
-  }
-  
-  public int getEnginePower() {
-    return this.enginePower;
-  }
-]]--
-	_window = ISVehicleSetEngineWindow:new(450, 280, 150, 125);
+	_window = ISVehicleSetEngineWindow:new(450, 280, 150, 125, _quality, _hp, _loudness);
 end
 
 function ISVehicleTweaks:onCallResetTrunk(_part)
