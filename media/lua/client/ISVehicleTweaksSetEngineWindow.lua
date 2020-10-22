@@ -4,14 +4,6 @@
 
 --[[
 	Auxiliary file for getting engine parameters from user.
-	
-	COPYRIGHT:
-	The idea, artwork, placement, English and Russian translations,
-	code and other things introduced in this mod are copyrighted 
-	to Rez.
-	Localizations are copyrighted to steam users who provided them
-	(see localization files).
-	Base game functions are copyrighted to The Indie Stone.
 ]]--
 
 ISVehicleSetEngineWindow = ISCollapsableWindow:derive("ISVehicleSetEngineWindow");
