@@ -17,13 +17,13 @@ function ISVehicleSetEngineWindow:createChildren()
 	local FONT_HGT_SMALL = getTextManager():getFontHeight(UIFont.Small);
 
 	-- entry fields
-	self.se_ui_entry_quality = ISTextEntryBox:new('100', 5, 20, 60, FONT_HGT_SMALL + 2 * 2);
+	self.se_ui_entry_quality = ISTextEntryBox:new(tostring(self.quality), 5, 20, 60, FONT_HGT_SMALL + 2 * 2);
 	self.se_ui_entry_quality.font = UIFont.Small;
 	self.se_ui_entry_quality:initialise();
-	self.se_ui_entry_hp = ISTextEntryBox:new('5000', 5, 45, 60, FONT_HGT_SMALL + 2 * 2);
+	self.se_ui_entry_hp = ISTextEntryBox:new(tostring(self.hp), 5, 45, 60, FONT_HGT_SMALL + 2 * 2);
 	self.se_ui_entry_hp.font = UIFont.Small;
 	self.se_ui_entry_hp:initialise();
-	self.se_ui_entry_loudness = ISTextEntryBox:new('27', 5, 70, 60, FONT_HGT_SMALL + 2 * 2);
+	self.se_ui_entry_loudness = ISTextEntryBox:new(tostring(self.loudness), 5, 70, 60, FONT_HGT_SMALL + 2 * 2);
 	self.se_ui_entry_loudness.font = UIFont.Small;
 	self.se_ui_entry_loudness:initialise();
 
@@ -54,13 +54,16 @@ function ISVehicleSetEngineWindow:createChildren()
 	self.se_ui_entry_loudness:setOnlyNumbers(true);
 end
 
-function ISVehicleSetEngineWindow:new(x, y, width, height)
+function ISVehicleSetEngineWindow:new(x, y, width, height, quality, hp, loudness)
 	o = {};
 	o = ISCollapsableWindow:new(x, y, width, height);
 	setmetatable(o, self);
 	self.__index = self;
 	o.title = "Set Parameters";
 	o.pin = true;
+	o.quality = quality or 100;
+	o.hp = hp or 240;
+	o.loudness = loudness or 27;
 	o:setResizable(false);
 	o:setVisible(true);
 	o:initialise();
