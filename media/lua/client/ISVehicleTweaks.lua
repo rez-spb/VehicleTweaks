@@ -33,13 +33,13 @@ end
 
 function ISVehicleTweaks:onCallSetEngineFeature(_vehicle)
 	ISVehicleTweaks.se_vehicle = _vehicle or {};
-	window = ISVehicleSetEngineWindow:new(450, 280, 150, 125);
+	_window = ISVehicleSetEngineWindow:new(450, 280, 150, 125);
 end
 
-function ISVehicleResetTrunk:onCallResetTrunk(part)
-	local item = part:getInventoryItem();
+function ISVehicleTweaks:onCallResetTrunk(_part)
+	local item = _part:getInventoryItem();
 	debug_print('repaired before: ' .. item:getHaveBeenRepaired());
-	ISTimedActionQueue.add(ISVehicleTweaksResetTrunkCommand:new(self, part));
+	ISTimedActionQueue.add(ISVehicleTweaksResetTrunkCommand:new(self, _part));
 end
 
 function ISVehicleTweaks:doPartContextMenu(part, x, y)
